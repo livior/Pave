@@ -1,5 +1,6 @@
 package ch.gbssg.pave.view;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.*;
@@ -17,7 +18,16 @@ public class FormPanel extends JPanel{
 	JScrollPane scrollPane;
 	
 	public FormPanel(){
-		setLayout(new GridLayout(10,2));
+		JPanel pnlFormData;
+		JPanel pnlMedicalHistory;
+		
+		setLayout(new GridLayout(2,1));
+		
+		pnlFormData			= new JPanel(new GridLayout(9,2));
+		pnlMedicalHistory	= new JPanel(new BorderLayout());
+		
+		// TODO: create the labels and set their border for margin
+		//label.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
 		
 		txtID					= new JTextField("1");
 		txtSurname				= new JTextField("Meier");
@@ -26,27 +36,31 @@ public class FormPanel extends JPanel{
 		txtAddress				= new JTextField("Kanalstrasse 33");
 		txtPostalCode			= new JTextField("9464");
 		txtPlace				= new JTextField("Rüthi");
+		
 		txtAreaMedicalHistory	= new JTextArea("Gebrochenes Bein");
 		scrollPane              = new JScrollPane(txtAreaMedicalHistory);
 		
-		add(new JLabel("Patienten Nr.:"));
-		add(txtID);
-		add(new JLabel("Name:"));
-		add(txtSurname);
-		add(new JLabel("Vorname:"));
-		add(txtFirstName);
-		add(new JLabel("Geburtsdatum:"));
-		add(txtBirthdate);
-		add(new JLabel("Adresse:"));
-		add(txtAddress);
-		add(new JLabel("PLZ:"));
-		add(txtPostalCode);
-		add(new JLabel("Ort:"));
-		add(txtPlace);
-		add(new JLabel(""));
-		add(new JLabel(""));
-		add(new JLabel("Krankengeschichte:"));
-		add(new JLabel(""));
-		add(scrollPane);
+		pnlFormData.add(new JLabel("Patienten Nr.:"));
+		pnlFormData.add(txtID);
+		pnlFormData.add(new JLabel("Name:"));
+		pnlFormData.add(txtSurname);
+		pnlFormData.add(new JLabel("Vorname:"));
+		pnlFormData.add(txtFirstName);
+		pnlFormData.add(new JLabel("Geburtsdatum:"));
+		pnlFormData.add(txtBirthdate);
+		pnlFormData.add(new JLabel("Adresse:"));
+		pnlFormData.add(txtAddress);
+		pnlFormData.add(new JLabel("PLZ:"));
+		pnlFormData.add(txtPostalCode);
+		pnlFormData.add(new JLabel("Ort:"));
+		pnlFormData.add(txtPlace);
+		pnlFormData.add(new JLabel());
+		pnlFormData.add(new JLabel());
+		
+		pnlMedicalHistory.add(new JLabel("Krankengeschichte:"), BorderLayout.NORTH);
+		pnlMedicalHistory.add(scrollPane, BorderLayout.CENTER);
+		
+		add(pnlFormData);
+		add(pnlMedicalHistory);
 	}
 }
