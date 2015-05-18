@@ -14,7 +14,7 @@ public class Pave {
 		Pave pave;
 		Controller controller = new Controller();
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-		controller.showView();
+		controller.showMainView();
 		
 		pave=new Pave();
 		

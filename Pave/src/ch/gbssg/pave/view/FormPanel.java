@@ -1,66 +1,68 @@
 package ch.gbssg.pave.view;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import org.jdatepicker.impl.*;
 
 public class FormPanel extends JPanel{
-	private static final long serialVersionUID = 1L;
-	JTextField txtID;
-	JTextField txtSurname;
-	JTextField txtFirstName;
-	JTextField txtBirthdate;
-	JTextField txtAddress;
-	JTextField txtPostalCode;
-	JTextField txtPlace;
-	JTextArea  txtAreaMedicalHistory;
-	JScrollPane scrollPane;
+ 	private static final long serialVersionUID = 1L;
+	JTextField	txtID;
+	JTextField	txtSurname;
+	JTextField	txtFirstName;
+	ObservingTextField txtDate;
+	JButton     btnBrowse;
+	JTextField	txtBirthday;
+	JTextField	txtBirthMonth;
+	JTextField	txtBirthYear;
+	JTextField	txtAddress;
+	JTextField	txtPostalCode;
+	JTextField	txtPlace;
 	
 	public FormPanel(){
-		JPanel pnlFormData;
-		JPanel pnlMedicalHistory;
-		
-		setLayout(new GridLayout(2,1));
-		
-		pnlFormData			= new JPanel(new GridLayout(9,2));
-		pnlMedicalHistory	= new JPanel(new BorderLayout());
-		
-		// TODO: create the labels and set their border for margin
-		//label.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
-		
-		txtID					= new JTextField("1");
-		txtSurname				= new JTextField("Meier");
-		txtFirstName			= new JTextField("Peter");
-		txtBirthdate			= new JTextField("20.05.1965");
-		txtAddress				= new JTextField("Kanalstrasse 33");
-		txtPostalCode			= new JTextField("9464");
-		txtPlace				= new JTextField("Rüthi");
-		
-		txtAreaMedicalHistory	= new JTextArea("Gebrochenes Bein");
-		scrollPane              = new JScrollPane(txtAreaMedicalHistory);
-		
-		pnlFormData.add(new JLabel("Patienten Nr.:"));
-		pnlFormData.add(txtID);
-		pnlFormData.add(new JLabel("Name:"));
-		pnlFormData.add(txtSurname);
-		pnlFormData.add(new JLabel("Vorname:"));
-		pnlFormData.add(txtFirstName);
-		pnlFormData.add(new JLabel("Geburtsdatum:"));
-		pnlFormData.add(txtBirthdate);
-		pnlFormData.add(new JLabel("Adresse:"));
-		pnlFormData.add(txtAddress);
-		pnlFormData.add(new JLabel("PLZ:"));
-		pnlFormData.add(txtPostalCode);
-		pnlFormData.add(new JLabel("Ort:"));
-		pnlFormData.add(txtPlace);
-		pnlFormData.add(new JLabel());
-		pnlFormData.add(new JLabel());
-		
-		pnlMedicalHistory.add(new JLabel("Krankengeschichte:"), BorderLayout.NORTH);
-		pnlMedicalHistory.add(scrollPane, BorderLayout.CENTER);
-		
-		add(pnlFormData);
-		add(pnlMedicalHistory);
+		setLayout(new GridLayout(5,3));
+		txtSurname				= new JTextField();
+		txtFirstName			= new JTextField();
+		txtBirthday				= new JTextField();
+		txtBirthMonth			= new JTextField();
+		txtBirthYear			= new JTextField();
+		txtDate                 = new ObservingTextField();
+		btnBrowse               = new JButton("...");
+		txtAddress				= new JTextField();
+		txtPostalCode			= new JTextField();
+		txtPlace				= new JTextField();
+
+		add(new JLabel("     Name:"));
+		add(txtSurname);
+		add(new JLabel());
+		add(new JLabel("     Vorname:"));
+		add(txtFirstName);
+		add(new JLabel());
+		add(new JLabel("     Geburtsdatum:"));
+//		add(txtBirthday);
+	//	add(txtBirthMonth);
+		//add(txtBirthYear);
+		add(txtDate);
+		add(btnBrowse);
+		add(new JLabel("     Adresse:"));
+		add(txtAddress);
+		add(new JLabel());
+		add(new JLabel("     PLZ/Ort:"));
+		add(txtPostalCode);
+		add(txtPlace);
 	}
+	public ObservingTextField getDatePickerTxtField(){
+		return txtDate;
+	}
+	public void setBtnBrowseActionListener(ActionListener a){
+		this.btnBrowse.addActionListener(a);
+	}
+
 }

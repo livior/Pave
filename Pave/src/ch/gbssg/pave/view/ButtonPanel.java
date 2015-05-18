@@ -4,6 +4,7 @@ import java.awt.Button;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -61,5 +62,9 @@ public class ButtonPanel extends JPanel{
 		add(equalSizeGridPanel);*/
 		add(flowLeft);
 		add(flowRight);
+	}
+	
+	public void setBtnNewActionListener(ActionListener a){
+		this.btnNew.addActionListener(a);
 	}
 }
