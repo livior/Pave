@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 
 import javax.swing.*;
 
+import ch.gbssg.pave.model.PatientModel;
+
 public class DataPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	JLabel lblID;
@@ -65,5 +67,16 @@ public class DataPanel extends JPanel{
 		
 		add(pnlFormData);
 		add(pnlMedicalHistory);
+	}
+	
+	public void setPatient(PatientModel patient){
+		lblID.setText("" + patient.getPatientID_m());
+		lblSurname.setText(patient.getSurname_m());
+		lblFirstName.setText(patient.getFirstName_m());
+		lblBirthdate.setText(patient.getBirthdate_m());
+		lblAddress.setText(patient.getAddress_m());
+		lblPostalCode.setText("" + patient.getPostalCode_m());
+		lblPlace.setText(patient.getPlace_m());
+		txtAreaMedicalHistory.setText(patient.getMedicalHistory_m());
 	}
 }

@@ -3,7 +3,7 @@ package ch.gbssg.pave.model;
 public class PatientModel {
 	private static int	patientID_m;
 	private String		firstName_m;
-	private String		surename_m;
+	private String		surname_m;
 	private String		birthdate_m;
 	private String		address_m;
 	private int    		postalCode_m;
@@ -13,7 +13,7 @@ public class PatientModel {
 	public PatientModel(){
 		patientID_m++;
 		this.firstName_m="";
-		this.surename_m="";
+		this.surname_m="";
 		this.birthdate_m="";
 		this.address_m="";
 		this.postalCode_m=0;
@@ -24,7 +24,7 @@ public class PatientModel {
 	public PatientModel(String firstName, String surname, String birthdate, String address, int postalCode, String place, String medicalHistory){
 		patientID_m++;
 		this.firstName_m=firstName;
-		this.surename_m=surname;
+		this.surname_m=surname;
 		this.birthdate_m=birthdate;
 		this.address_m=address;
 		this.postalCode_m=postalCode;
@@ -51,12 +51,12 @@ public class PatientModel {
 		this.firstName_m = firstName_m;
 	}
 
-	public String getSurename_m() {
-		return surename_m;
+	public String getSurname_m() {
+		return surname_m;
 	}
 
 	public void setSurename_m(String surename_m) {
-		this.surename_m = surename_m;
+		this.surname_m = surename_m;
 	}
 
 	public String getBirthdate_m() {

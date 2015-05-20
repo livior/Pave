@@ -1,6 +1,7 @@
 package ch.gbssg.pave.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ public class MainView extends JFrame{
 	private ButtonPanel pnlButtons;
 	private DataPanel pnlData;
 	
-	public MainView(){
+	public MainView() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
 		super("Pave");
 		initForm();
 	}
@@ -20,12 +21,19 @@ public class MainView extends JFrame{
 	/**
      * Die JForm wird initialisiert und alle Steuerelemente
      * positioniert
+	 * @throws UnsupportedLookAndFeelException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws ClassNotFoundException 
      */
-    private void initForm(){
-    	
+    private void initForm() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
+		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
+ 	
     	this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(500, 500);
+        this.setMinimumSize(new Dimension(450,350));
+
 
 
 

@@ -10,7 +10,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import org.jdatepicker.impl.*;
 
 public class FormPanel extends JPanel{
  	private static final long serialVersionUID = 1L;

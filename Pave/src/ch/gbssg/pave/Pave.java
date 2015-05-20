@@ -10,10 +10,9 @@ public class Pave {
 	public Pave(){
 		
 	}
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
 		Pave pave;
 		Controller controller = new Controller();
-		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
 		controller.showMainView();
 		
 		pave=new Pave();

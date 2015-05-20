@@ -1,14 +1,12 @@
 package ch.gbssg.pave.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
 
 public class NewPatientView extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -45,7 +43,7 @@ public class NewPatientView extends JFrame{
     public void setBtnBrowseActionListener(ActionListener a){
     	pnlForm.setBtnBrowseActionListener(a);
     }
-    public static ObservingTextField getDatePickerTxtField(){
+    public ObservingTextField getDatePickerTxtField(){
     	return pnlForm.getDatePickerTxtField();
     }
 
