@@ -2,6 +2,7 @@ package ch.gbssg.pave.model;
 
 public class PatientModel {
 	private static int	patientID_m;
+	private int         id_m;
 	private String		firstName_m;
 	private String		surname_m;
 	private String		birthdate_m;
@@ -12,6 +13,7 @@ public class PatientModel {
 
 	public PatientModel(){
 		patientID_m++;
+		this.id_m=patientID_m;
 		this.firstName_m="";
 		this.surname_m="";
 		this.birthdate_m="";
@@ -23,6 +25,7 @@ public class PatientModel {
 
 	public PatientModel(String firstName, String surname, String birthdate, String address, int postalCode, String place, String medicalHistory){
 		patientID_m++;
+		this.id_m=patientID_m;
 		this.firstName_m=firstName;
 		this.surname_m=surname;
 		this.birthdate_m=birthdate;
@@ -35,68 +38,68 @@ public class PatientModel {
 	
 	/* getter und setter */
 
-	public static int getPatientID_m() {
-		return patientID_m;
+	public int getID() {
+		return id_m;
 	}
 
-	public static void setPatientID_m(int patientID_m) {
-		PatientModel.patientID_m = patientID_m;
+	public void setID(int id) {
+		this.id_m = id;
 	}
 
-	public String getFirstName_m() {
+	public String getFirstName() {
 		return firstName_m;
 	}
 
-	public void setFirstName_m(String firstName_m) {
-		this.firstName_m = firstName_m;
+	public void setFirstName(String firstName) {
+		this.firstName_m = firstName;
 	}
 
-	public String getSurname_m() {
+	public String getSurname() {
 		return surname_m;
 	}
 
-	public void setSurename_m(String surename_m) {
-		this.surname_m = surename_m;
+	public void setSurname(String surname) {
+		this.surname_m = surname;
 	}
 
-	public String getBirthdate_m() {
+	public String getBirthdate() {
 		return birthdate_m;
 	}
 
-	public void setBirthdate_m(String birthdate_m) {
-		this.birthdate_m = birthdate_m;
+	public void setBirthdate(String birthdate) {
+		this.birthdate_m = birthdate;
 	}
 
-	public String getAddress_m() {
+	public String getAddress() {
 		return address_m;
 	}
 
-	public void setAddress_m(String address_m) {
-		this.address_m = address_m;
+	public void setAddress(String address) {
+		this.address_m = address;
 	}
 
-	public int getPostalCode_m() {
+	public int getPostalCode() {
 		return postalCode_m;
 	}
 
-	public void setPostalCode_m(int postalCode_m) {
-		this.postalCode_m = postalCode_m;
+	public void setPostalCode(int postalCode) {
+		this.postalCode_m = postalCode;
 	}
 
-	public String getPlace_m() {
+	public String getPlace() {
 		return place_m;
 	}
 
-	public void setPlace_m(String place_m) {
+	public void setPlace(String place_m) {
 		this.place_m = place_m;
 	}
 
-	public String getMedicalHistory_m() {
+	public String getMedicalHistory() {
 		return medicalHistory_m;
 	}
 
-	public void setMedicalHistory_m(String medicalHistory_m) {
-		this.medicalHistory_m = medicalHistory_m;
+	public void setMedicalHistory(String medicalHistory) {
+		this.medicalHistory_m = medicalHistory;
 	}
 	
 }

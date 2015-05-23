@@ -70,13 +70,13 @@ public class DataPanel extends JPanel{
 	}
 	
 	public void setPatient(PatientModel patient){
-		lblID.setText("" + patient.getPatientID_m());
-		lblSurname.setText(patient.getSurname_m());
-		lblFirstName.setText(patient.getFirstName_m());
-		lblBirthdate.setText(patient.getBirthdate_m());
-		lblAddress.setText(patient.getAddress_m());
-		lblPostalCode.setText("" + patient.getPostalCode_m());
-		lblPlace.setText(patient.getPlace_m());
-		txtAreaMedicalHistory.setText(patient.getMedicalHistory_m());
+		lblID.setText("" + patient.getID());
+		lblSurname.setText(patient.getSurname());
+		lblFirstName.setText(patient.getFirstName());
+		lblBirthdate.setText(patient.getBirthdate());
+		lblAddress.setText(patient.getAddress());
+		lblPostalCode.setText("" + patient.getPostalCode());
+		lblPlace.setText(patient.getPlace());
+		txtAreaMedicalHistory.setText(patient.getMedicalHistory());
 	}
 }

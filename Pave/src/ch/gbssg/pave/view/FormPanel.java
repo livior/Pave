@@ -18,9 +18,6 @@ public class FormPanel extends JPanel{
 	JTextField	txtFirstName;
 	ObservingTextField txtDate;
 	JButton     btnBrowse;
-	JTextField	txtBirthday;
-	JTextField	txtBirthMonth;
-	JTextField	txtBirthYear;
 	JTextField	txtAddress;
 	JTextField	txtPostalCode;
 	JTextField	txtPlace;
@@ -29,9 +26,6 @@ public class FormPanel extends JPanel{
 		setLayout(new GridLayout(5,3));
 		txtSurname				= new JTextField();
 		txtFirstName			= new JTextField();
-		txtBirthday				= new JTextField();
-		txtBirthMonth			= new JTextField();
-		txtBirthYear			= new JTextField();
 		txtDate                 = new ObservingTextField();
 		btnBrowse               = new JButton("...");
 		txtAddress				= new JTextField();
@@ -45,9 +39,6 @@ public class FormPanel extends JPanel{
 		add(txtFirstName);
 		add(new JLabel());
 		add(new JLabel("     Geburtsdatum:"));
-//		add(txtBirthday);
-	//	add(txtBirthMonth);
-		//add(txtBirthYear);
 		add(txtDate);
 		add(btnBrowse);
 		add(new JLabel("     Adresse:"));
@@ -57,11 +48,25 @@ public class FormPanel extends JPanel{
 		add(txtPostalCode);
 		add(txtPlace);
 	}
+	public String getSurname(){
+		return(txtSurname.getText());
+	}
+	public String getFirstName(){
+		return(txtFirstName.getText());
+	}
 	public ObservingTextField getDatePickerTxtField(){
-		return txtDate;
+		return(txtDate);
+	}
+	public String getAddress(){
+		return(txtAddress.getText());
+	}
+	public int getPostalCode(){
+		return(Integer.parseInt(txtPostalCode.getText()));
+	}
+	public String getPlace(){
+		return(txtPlace.getText());
 	}
 	public void setBtnBrowseActionListener(ActionListener a){
 		this.btnBrowse.addActionListener(a);
 	}
-
 }

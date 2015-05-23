@@ -32,19 +32,34 @@ public class NewPatientView extends JFrame{
         this.add(pnlForm);
         this.add(pnlButtonTextArea);
         
-//		UtilDateModel model = new UtilDateModel();
-	//	model.setDate(1990, 8, 24);
-		//JDatePanelImpl datePanel = new JDatePanelImpl(model,null);
-		//JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, null);
-		 
-    //    add(datePicker);		//setLayout(new GridLayout(6,4));
     }
 
     public void setBtnBrowseActionListener(ActionListener a){
     	pnlForm.setBtnBrowseActionListener(a);
     }
+    public void setBtnSaveActionListener(ActionListener a){
+    	pnlButtonTextArea.setBtnSaveActionListener(a);
+    }
+    public void setBtnCloseActionListener(ActionListener a){
+    	pnlButtonTextArea.setBtnCloseActionListener(a);
+    }
+
+    public String getSurname(){
+    	return(pnlForm.getSurname());
+    }
+    public String getFirstName(){
+    	return(pnlForm.getFirstName());
+    }
     public ObservingTextField getDatePickerTxtField(){
     	return pnlForm.getDatePickerTxtField();
     }
-
+    public String getAddress(){
+    	return(pnlForm.getAddress());
+    }
+    public int getPostalCode(){
+    	return(pnlForm.getPostalCode());
+    }
+    public String getPlace(){
+    	return(pnlForm.getPlace());
+    }
 }

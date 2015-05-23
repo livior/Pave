@@ -3,6 +3,7 @@ package ch.gbssg.pave.view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -37,5 +38,12 @@ public class ButtonTextAreaPanel extends JPanel{
 		pnlButtonRight.add(btnClose);
 		add(scrollPane, BorderLayout.CENTER);
 		add(pnlButtons, BorderLayout.SOUTH);
+	}
+	
+	public void setBtnSaveActionListener(ActionListener a){
+		this.btnSave.addActionListener(a);
+	}
+	public void setBtnCloseActionListener(ActionListener a){
+		this.btnClose.addActionListener(a);
 	}
 }

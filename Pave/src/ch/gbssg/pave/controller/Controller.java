@@ -27,6 +27,8 @@ public class Controller {
 	public void addActionListener(){
 		this.viewMain_m.setBtnNewActionListener(new BtnNewListener());
 		this.viewNewPatient_m.setBtnBrowseActionListener(new BtnBrowseListener());
+		this.viewNewPatient_m.setBtnSaveActionListener(new BtnSaveListener());
+		this.viewNewPatient_m.setBtnCloseActionListener(new BtnCloseListener());
 	}
 	public void showMainView(){
         this.viewMain_m.setVisible(true);
@@ -60,5 +62,15 @@ public class Controller {
     		else
     			return Locale.GERMANY;
     	}
+    }
+    class BtnSaveListener implements ActionListener{
+        public void actionPerformed(ActionEvent e) {
+        	//Controller.this.viewNewPatient_m.
+        }
+    }
+    class BtnCloseListener implements ActionListener{
+        public void actionPerformed(ActionEvent e) {
+        	Controller.this.viewNewPatient_m.hide();
+        }
     }
 }

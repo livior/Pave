@@ -14,6 +14,7 @@ public class SQLiteDatabaseModel {
 		                 				"POSTALCODE      INT     NOT NULL," +
 		                 				"PLACE           TEXT    NOT NULL," +
 		                 				"MEDICALHISTORY  TEXT    NOT NULL)";
+	private final String INSERT=        "INSERT INTO PATIENTS (ID,FIRSTNAME,BIRTHDATE,ADDRESS,POSTALCODE,PLACE,MEDICALHISTORY) VALUES(?,?,?,?,?,?,?)";
 	
 	public SQLiteDatabaseModel(){
 		try {
@@ -32,9 +33,17 @@ public class SQLiteDatabaseModel {
 	}
 	
 	public void addPatient(PatientModel patient) throws SQLException{
-		String sql = "INSERT INTO flights (ID,FIRSTNAME,SURNAME) VALUES('"+ patient.getPatientID_m() +"','"+ patient.getFirstName_m() + "','"+ patient.getSurname_m() + "','" + patient.getBirthdate_m() + "','" + patient.getAddress_m() + patient.getPostalCode_m() + "','" + patient.getPlace_m() + patient.getMedicalHistory_m() + "')";
-		//this.connection_m.prepareStatement(sql)
-		stmt.executeQuery(sql);
+		PreparedStatement statement = connection_m.prepareStatement(INSERT); 
+		statement.setInt(1,patient.getID());
+	    statement.setString(2,patient.getFirstName());
+	    statement.setString(3,patient.getBirthdate());
+	    statement.setString(4,patient.getAddress());
+	    statement.setInt(5,patient.getPostalCode());
+	    statement.setString(6,patient.getPlace());
+	    statement.setString(7,patient.getMedicalHistory());
+		statement.executeUpdate();
+		
+		this.connection_m.commit();
 
 	}
 }
