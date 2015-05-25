@@ -21,7 +21,7 @@ public class Controller {
 		this.viewNewPatient_m = new NewPatientView();
 		this.modelSQLiteDatabase_m = new SQLiteDatabaseModel();
 		addActionListener();
-		//this.model_m = new PatientModel();
+		this.modelPatients_m = new ArrayList<PatientModel>();
 	}
 	
 	public void addActionListener(){
@@ -65,12 +65,24 @@ public class Controller {
     }
     class BtnSaveListener implements ActionListener{
         public void actionPerformed(ActionEvent e) {
-        	//Controller.this.viewNewPatient_m.
+        	PatientModel patient=new PatientModel(Controller.this.viewNewPatient_m.getFirstName(),Controller.this.viewNewPatient_m.getSurname(),Controller.this.viewNewPatient_m.getBirthdate(),Controller.this.viewNewPatient_m.getAddress(),Controller.this.viewNewPatient_m.getPostalCode(),Controller.this.viewNewPatient_m.getPlace(),Controller.this.viewNewPatient_m.getMedicalHistory());
+        	System.out.println(patient.getFirstName());
+        	System.out.println(Controller.this.viewNewPatient_m.getFirstName());
+        	System.out.println(Controller.this.viewNewPatient_m.getSurname());
+        	System.out.println(Controller.this.viewNewPatient_m.getBirthdate());
+        	System.out.println(Controller.this.viewNewPatient_m.getAddress());
+        	System.out.println("" + Controller.this.viewNewPatient_m.getPostalCode());
+        	System.out.println("" + Controller.this.viewNewPatient_m.getPlace());
+        	System.out.println("" + Controller.this.viewNewPatient_m.getMedicalHistory());
+        	Controller.this.modelPatients_m.add(patient);
+        	Controller.this.viewMain_m.updateList(Controller.this.modelPatients_m);
+        	Controller.this.viewNewPatient_m.dispose();
         }
     }
     class BtnCloseListener implements ActionListener{
         public void actionPerformed(ActionEvent e) {
-        	Controller.this.viewNewPatient_m.hide();
+        	Controller.this.viewNewPatient_m.dispose();
+//        	Controller.this.viewNewPatient_m.hide();
         }
     }
 }

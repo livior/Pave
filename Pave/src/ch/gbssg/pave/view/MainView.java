@@ -3,8 +3,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
+
+import ch.gbssg.pave.model.PatientModel;
 
 public class MainView extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -59,6 +62,13 @@ public class MainView extends JFrame{
         this.add(pnlData, BorderLayout.CENTER);
     }
     
+    public void setPatient(PatientModel patient){
+    	this.pnlData.setPatient(patient);
+    }
+	public void updateList(ArrayList<PatientModel> patients){
+		this.pnlList.updateList(patients);
+	}
+
     public void setBtnNewActionListener(ActionListener a){
     	pnlButtons.setBtnNewActionListener(a);
     }

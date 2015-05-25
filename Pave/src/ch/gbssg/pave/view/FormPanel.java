@@ -33,10 +33,10 @@ public class FormPanel extends JPanel{
 		txtPlace				= new JTextField();
 
 		add(new JLabel("     Name:"));
-		add(txtSurname);
+		add(txtFirstName);
 		add(new JLabel());
 		add(new JLabel("     Vorname:"));
-		add(txtFirstName);
+		add(txtSurname);
 		add(new JLabel());
 		add(new JLabel("     Geburtsdatum:"));
 		add(txtDate);

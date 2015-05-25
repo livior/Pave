@@ -53,6 +53,10 @@ public class NewPatientView extends JFrame{
     public ObservingTextField getDatePickerTxtField(){
     	return pnlForm.getDatePickerTxtField();
     }
+    public String getBirthdate(){
+    	return pnlForm.getDatePickerTxtField().getText();
+    }
+
     public String getAddress(){
     	return(pnlForm.getAddress());
     }
@@ -61,5 +65,8 @@ public class NewPatientView extends JFrame{
     }
     public String getPlace(){
     	return(pnlForm.getPlace());
+    }
+    public String getMedicalHistory(){
+    	return(pnlButtonTextArea.getMedicalHistory());
     }
 }

@@ -1,6 +1,7 @@
 package ch.gbssg.pave.model;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class SQLiteDatabaseModel {
 	private Connection connection_m;
@@ -44,6 +45,26 @@ public class SQLiteDatabaseModel {
 		statement.executeUpdate();
 		
 		this.connection_m.commit();
-
+	}
+	
+	public ArrayList<PatientModel> getPatients(){
+		ArrayList<PatientModel> patients = new ArrayList<PatientModel>();
+		PatientModel patient;
+		try { 
+			ResultSet rs = stmt.executeQuery("SELECT * FROM PATIENTS;"); 
+			stmt = this.connection_m.createStatement();
+	        while(rs.next()) {
+	        	patient=new PatientModel(rs.getString("FIRSTNAME"), rs.getString("SURNAME"), rs.getString("BIRTHDATE"), rs.getString("ADDRESS"), rs.getInt("POSTALCODE"), rs.getString("PLACE"), rs.getString("MEDICALHISTORY"));
+	        	patient.setID(rs.getInt("ID"));
+	        	patients.add(patient);
+	            
+	        }
+	        rs.close(); 
+			this.connection_m.commit();
+		}catch(SQLException e){
+			System.err.println("Couldn't handle DB-Query"); 
+            e.printStackTrace(); 
+		}
+		return(patients);
 	}
 }

@@ -40,6 +40,9 @@ public class ButtonTextAreaPanel extends JPanel{
 		add(pnlButtons, BorderLayout.SOUTH);
 	}
 	
+	public String getMedicalHistory(){
+		return(txtAreaMedicalHistory.getText());
+	}
 	public void setBtnSaveActionListener(ActionListener a){
 		this.btnSave.addActionListener(a);
 	}
