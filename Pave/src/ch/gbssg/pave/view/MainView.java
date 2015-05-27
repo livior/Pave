@@ -2,6 +2,7 @@ package ch.gbssg.pave.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.List;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
@@ -71,5 +72,13 @@ public class MainView extends JFrame{
 
     public void setBtnNewActionListener(ActionListener a){
     	pnlButtons.setBtnNewActionListener(a);
+    }
+    
+    public void setListActionListener(ActionListener a){
+    	pnlList.setListActionListener(a);
+    }
+    
+    public List getList(){
+    	return(pnlList.getList());
     }
 }

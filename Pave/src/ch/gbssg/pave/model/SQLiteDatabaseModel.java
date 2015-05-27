@@ -2,6 +2,8 @@ package ch.gbssg.pave.model;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SQLiteDatabaseModel {
 	private Connection connection_m;
@@ -15,7 +17,6 @@ public class SQLiteDatabaseModel {
 		                 				"POSTALCODE      INT     NOT NULL," +
 		                 				"PLACE           TEXT    NOT NULL," +
 		                 				"MEDICALHISTORY  TEXT    NOT NULL)";
-	private final String INSERT=        "INSERT INTO PATIENTS (ID,FIRSTNAME,BIRTHDATE,ADDRESS,POSTALCODE,PLACE,MEDICALHISTORY) VALUES(?,?,?,?,?,?,?)";
 	
 	public SQLiteDatabaseModel(){
 		try {
@@ -25,7 +26,6 @@ public class SQLiteDatabaseModel {
 			String sql = CREATE_TABLE; 
 		    stmt.executeUpdate(sql);
 		    stmt.close();
-		    this.connection_m.close();
 
 		} catch (Exception e) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -34,37 +34,35 @@ public class SQLiteDatabaseModel {
 	}
 	
 	public void addPatient(PatientModel patient) throws SQLException{
-		PreparedStatement statement = connection_m.prepareStatement(INSERT); 
-		statement.setInt(1,patient.getID());
-	    statement.setString(2,patient.getFirstName());
-	    statement.setString(3,patient.getBirthdate());
-	    statement.setString(4,patient.getAddress());
-	    statement.setInt(5,patient.getPostalCode());
-	    statement.setString(6,patient.getPlace());
-	    statement.setString(7,patient.getMedicalHistory());
-		statement.executeUpdate();
-		
+		this.connection_m.setAutoCommit(false);
+		stmt = this.connection_m.createStatement();
+		String sql = "INSERT INTO PATIENTS (ID,FIRSTNAME,SURNAME,BIRTHDATE,ADDRESS,POSTALCODE,PLACE,MEDICALHISTORY) VALUES(" + patient.getID() + ",'" + patient.getFirstName() + "','" + patient.getSurname() + "','" + patient.getBirthdate() + "','" + patient.getAddress() + "','" + patient.getPostalCode() + "','" + patient.getPlace() + "','" + patient.getMedicalHistory() + "');";
+		stmt.executeUpdate(sql);
+		stmt.close();
 		this.connection_m.commit();
 	}
 	
-	public ArrayList<PatientModel> getPatients(){
+	public ArrayList<PatientModel> getPatients() throws SQLException{
 		ArrayList<PatientModel> patients = new ArrayList<PatientModel>();
 		PatientModel patient;
+		int index=0;
+		
 		try { 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM PATIENTS;"); 
 			stmt = this.connection_m.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM PATIENTS;"); 
 	        while(rs.next()) {
 	        	patient=new PatientModel(rs.getString("FIRSTNAME"), rs.getString("SURNAME"), rs.getString("BIRTHDATE"), rs.getString("ADDRESS"), rs.getInt("POSTALCODE"), rs.getString("PLACE"), rs.getString("MEDICALHISTORY"));
 	        	patient.setID(rs.getInt("ID"));
 	        	patients.add(patient);
+	        	index++;
 	            
 	        }
 	        rs.close(); 
-			this.connection_m.commit();
 		}catch(SQLException e){
 			System.err.println("Couldn't handle DB-Query"); 
             e.printStackTrace(); 
 		}
+        stmt.close();
 		return(patients);
 	}
 }

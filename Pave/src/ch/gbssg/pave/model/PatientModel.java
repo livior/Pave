@@ -1,5 +1,8 @@
 package ch.gbssg.pave.model;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class PatientModel {
 	private static int	patientID_m;
 	private int         id_m;
@@ -10,6 +13,7 @@ public class PatientModel {
 	private int    		postalCode_m;
 	private String		place_m;
 	private String		medicalHistory_m;
+
 
 	public PatientModel(){
 		patientID_m++;

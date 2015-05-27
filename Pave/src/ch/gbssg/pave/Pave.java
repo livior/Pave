@@ -1,4 +1,6 @@
 package ch.gbssg.pave;
+import java.sql.SQLException;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -10,7 +12,7 @@ public class Pave {
 	public Pave(){
 		
 	}
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, SQLException{
 		Pave pave;
 		Controller controller = new Controller();
 		controller.showMainView();

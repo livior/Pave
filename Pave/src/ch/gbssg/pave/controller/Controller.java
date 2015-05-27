@@ -1,9 +1,11 @@
 package ch.gbssg.pave.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -16,24 +18,27 @@ public class Controller {
 	private SQLiteDatabaseModel modelSQLiteDatabase_m;
 	private ArrayList<PatientModel> modelPatients_m;
 	
-	public Controller() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
+	public Controller() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, SQLException{
 		this.viewMain_m = new MainView();
-		this.viewNewPatient_m = new NewPatientView();
+		
 		this.modelSQLiteDatabase_m = new SQLiteDatabaseModel();
-		addActionListener();
 		this.modelPatients_m = new ArrayList<PatientModel>();
+		this.modelPatients_m = this.modelSQLiteDatabase_m.getPatients();
+    	this.viewMain_m.updateList(this.modelPatients_m);
 	}
 	
-	public void addActionListener(){
-		this.viewMain_m.setBtnNewActionListener(new BtnNewListener());
-		this.viewNewPatient_m.setBtnBrowseActionListener(new BtnBrowseListener());
-		this.viewNewPatient_m.setBtnSaveActionListener(new BtnSaveListener());
-		this.viewNewPatient_m.setBtnCloseActionListener(new BtnCloseListener());
-	}
 	public void showMainView(){
+		this.viewMain_m.setBtnNewActionListener(new BtnNewListener());
+		this.viewMain_m.setListActionListener(new ListListener());
         this.viewMain_m.setVisible(true);
     }
 	public void showNewPatientView(){
+		this.viewNewPatient_m = new NewPatientView();
+		
+		this.viewNewPatient_m.setBtnBrowseActionListener(new BtnBrowseListener());
+		this.viewNewPatient_m.setBtnSaveActionListener(new BtnSaveListener());
+		this.viewNewPatient_m.setBtnCloseActionListener(new BtnCloseListener());
+		
         this.viewNewPatient_m.setVisible(true);
     }
 	
@@ -68,13 +73,19 @@ public class Controller {
         	PatientModel patient=new PatientModel(Controller.this.viewNewPatient_m.getFirstName(),Controller.this.viewNewPatient_m.getSurname(),Controller.this.viewNewPatient_m.getBirthdate(),Controller.this.viewNewPatient_m.getAddress(),Controller.this.viewNewPatient_m.getPostalCode(),Controller.this.viewNewPatient_m.getPlace(),Controller.this.viewNewPatient_m.getMedicalHistory());
         	System.out.println(patient.getFirstName());
         	System.out.println(Controller.this.viewNewPatient_m.getFirstName());
-        	System.out.println(Controller.this.viewNewPatient_m.getSurname());
-        	System.out.println(Controller.this.viewNewPatient_m.getBirthdate());
-        	System.out.println(Controller.this.viewNewPatient_m.getAddress());
-        	System.out.println("" + Controller.this.viewNewPatient_m.getPostalCode());
-        	System.out.println("" + Controller.this.viewNewPatient_m.getPlace());
-        	System.out.println("" + Controller.this.viewNewPatient_m.getMedicalHistory());
+        	System.out.println(patient.getSurname());
+        	System.out.println(patient.getBirthdate());
+        	System.out.println(patient.getAddress());
+        	System.out.println("" + patient.getPostalCode());
+        	System.out.println("" + patient.getPlace());
+        	System.out.println("" + patient.getMedicalHistory());
         	Controller.this.modelPatients_m.add(patient);
+        	try {
+				Controller.this.modelSQLiteDatabase_m.addPatient(patient);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         	Controller.this.viewMain_m.updateList(Controller.this.modelPatients_m);
         	Controller.this.viewNewPatient_m.dispose();
         }
@@ -83,6 +94,11 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
         	Controller.this.viewNewPatient_m.dispose();
 //        	Controller.this.viewNewPatient_m.hide();
+        }
+    }
+    class ListListener implements ActionListener{
+        public void actionPerformed(ActionEvent e) {
+        	viewMain_m.setPatient(Controller.this.modelPatients_m.get(viewMain_m.getList().getSelectedIndex())); 
         }
     }
 }
