@@ -67,4 +67,7 @@ public class ButtonPanel extends JPanel{
 	public void setBtnNewActionListener(ActionListener a){
 		this.btnNew.addActionListener(a);
 	}
+	public void setBtnDeleteActionListener(ActionListener a){
+		this.btnDelete.addActionListener(a);
+	}
 }

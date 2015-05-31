@@ -32,13 +32,13 @@ public class DataPanel extends JPanel{
 		
 		Font oldLabelFont = UIManager.getFont("Label.font");
 	    UIManager.put("Label.font", oldLabelFont.deriveFont(Font.PLAIN));
-		lblID					= new JLabel("1");
-		lblSurname				= new JLabel("Meier");
-		lblFirstName			= new JLabel("Peter");
-		lblBirthdate			= new JLabel("20.05.1965");
-		lblAddress				= new JLabel("Kanalstrasse 33");
-		lblPostalCode			= new JLabel("9464");
-		lblPlace				= new JLabel("Rüthi");
+		lblID					= new JLabel("");
+		lblSurname				= new JLabel("");
+		lblFirstName			= new JLabel("");
+		lblBirthdate			= new JLabel("");
+		lblAddress				= new JLabel("");
+		lblPostalCode			= new JLabel("");
+		lblPlace				= new JLabel("");
 		
 		txtAreaMedicalHistory	= new JTextArea("Gebrochenes Bein");
 		txtAreaMedicalHistory.setEditable(false);

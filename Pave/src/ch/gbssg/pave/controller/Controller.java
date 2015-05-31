@@ -25,10 +25,13 @@ public class Controller {
 		this.modelPatients_m = new ArrayList<PatientModel>();
 		this.modelPatients_m = this.modelSQLiteDatabase_m.getPatients();
     	this.viewMain_m.updateList(this.modelPatients_m);
+    	if(this.modelPatients_m.size()>0)
+    		this.viewMain_m.setPatient(this.modelPatients_m.get(0));
 	}
 	
 	public void showMainView(){
 		this.viewMain_m.setBtnNewActionListener(new BtnNewListener());
+		this.viewMain_m.setBtnDeleteActionListener(new BtnDeleteListener());
 		this.viewMain_m.setListActionListener(new ListListener());
         this.viewMain_m.setVisible(true);
     }
@@ -48,6 +51,17 @@ public class Controller {
     class BtnNewListener implements ActionListener{
         public void actionPerformed(ActionEvent e) {
         	showNewPatientView();
+        }
+    }
+    class BtnDeleteListener implements ActionListener{
+        public void actionPerformed(ActionEvent e) {
+        	try {
+				Controller.this.modelSQLiteDatabase_m.deletePatient(Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()));
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+            Controller.this.modelPatients_m.remove(Controller.this.viewMain_m.getList().getSelectedIndex());
+        	Controller.this.viewMain_m.updateList(Controller.this.modelPatients_m);
         }
     }
     
@@ -70,6 +84,11 @@ public class Controller {
     }
     class BtnSaveListener implements ActionListener{
         public void actionPerformed(ActionEvent e) {
+        	if(Controller.this.viewNewPatient_m.getPostalCode()<0)
+        	{
+        		Controller.this.viewNewPatient_m.showErrorInvaildInput("PLZ muss eine Zahl sein!");
+        		return;
+        	}
         	PatientModel patient=new PatientModel(Controller.this.viewNewPatient_m.getFirstName(),Controller.this.viewNewPatient_m.getSurname(),Controller.this.viewNewPatient_m.getBirthdate(),Controller.this.viewNewPatient_m.getAddress(),Controller.this.viewNewPatient_m.getPostalCode(),Controller.this.viewNewPatient_m.getPlace(),Controller.this.viewNewPatient_m.getMedicalHistory());
         	System.out.println(patient.getFirstName());
         	System.out.println(Controller.this.viewNewPatient_m.getFirstName());
@@ -83,8 +102,9 @@ public class Controller {
         	try {
 				Controller.this.modelSQLiteDatabase_m.addPatient(patient);
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
+				Controller.this.viewNewPatient_m.showErrorInvaildInput("Datenbank fehler!");
+        		return;
 			}
         	Controller.this.viewMain_m.updateList(Controller.this.modelPatients_m);
         	Controller.this.viewNewPatient_m.dispose();

@@ -61,7 +61,16 @@ public class FormPanel extends JPanel{
 		return(txtAddress.getText());
 	}
 	public int getPostalCode(){
-		return(Integer.parseInt(txtPostalCode.getText()));
+		int postalCode;
+		try  
+		{  
+			postalCode = Integer.parseInt(txtPostalCode.getText());  
+		}  
+		catch(NumberFormatException nfe)  
+		{  
+		  return(-1);  
+		}  
+		return(postalCode);
 	}
 	public String getPlace(){
 		return(txtPlace.getText());

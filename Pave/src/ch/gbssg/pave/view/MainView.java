@@ -37,28 +37,17 @@ public class MainView extends JFrame{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(500, 500);
         this.setMinimumSize(new Dimension(450,350));
-
-
-
-
-    	//patientsListView.setBounds(0, 20,100,300);
-//        patientsListView.setBorder(BorderFactory.createLineBorder(Color.black));
-        
         
         
         pnlHeader = new HeaderPanel();
         this.add(pnlHeader, BorderLayout.NORTH);
         
-        //this.add(patientsListView,BorderLayout.WEST);
         pnlList = new ListPanel();
         this.add(pnlList, BorderLayout.WEST);
         
-        //add(patientsListView, BorderLayout.WEST);
-        //this.add(new ButtonPanel());
         pnlButtons = new ButtonPanel();
         this.add(pnlButtons, BorderLayout.SOUTH);
         
-	    //add(scrollPane,BorderLayout.WEST);
         pnlData = new DataPanel();
         this.add(pnlData, BorderLayout.CENTER);
     }
@@ -72,6 +61,9 @@ public class MainView extends JFrame{
 
     public void setBtnNewActionListener(ActionListener a){
     	pnlButtons.setBtnNewActionListener(a);
+    }
+    public void setBtnDeleteActionListener(ActionListener a){
+    	pnlButtons.setBtnDeleteActionListener(a);
     }
     
     public void setListActionListener(ActionListener a){

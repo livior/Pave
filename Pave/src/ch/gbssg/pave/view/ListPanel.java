@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import ch.gbssg.pave.controller.Controller;
 import ch.gbssg.pave.model.PatientModel;
 
 public class ListPanel extends JPanel{
@@ -55,8 +56,12 @@ public class ListPanel extends JPanel{
 
 	public void updateList(ArrayList<PatientModel> patients){
         int index;
+        
+        patientsListView.clear();
 		for(index=0;index<patients.size();index++){
 			patientsListView.add(patients.get(index).getFirstName() + " " + patients.get(index).getSurname());
 		}
+        patientsListView.select(index-1);
+
 	}
 }

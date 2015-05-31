@@ -33,7 +33,11 @@ public class NewPatientView extends JFrame{
         this.add(pnlButtonTextArea);
         
     }
-
+    
+    public void showErrorInvaildInput(String infoMessage){
+    	String titleBar = "Fehler";
+    	JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.ERROR_MESSAGE);
+    }
     public void setBtnBrowseActionListener(ActionListener a){
     	pnlForm.setBtnBrowseActionListener(a);
     }

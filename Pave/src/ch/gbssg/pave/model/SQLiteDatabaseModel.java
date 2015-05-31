@@ -17,6 +17,7 @@ public class SQLiteDatabaseModel {
 		                 				"POSTALCODE      INT     NOT NULL," +
 		                 				"PLACE           TEXT    NOT NULL," +
 		                 				"MEDICALHISTORY  TEXT    NOT NULL)";
+	private final String TABLE_NAME =   "PATIENTS";
 	
 	public SQLiteDatabaseModel(){
 		try {
@@ -37,6 +38,15 @@ public class SQLiteDatabaseModel {
 		this.connection_m.setAutoCommit(false);
 		stmt = this.connection_m.createStatement();
 		String sql = "INSERT INTO PATIENTS (ID,FIRSTNAME,SURNAME,BIRTHDATE,ADDRESS,POSTALCODE,PLACE,MEDICALHISTORY) VALUES(" + patient.getID() + ",'" + patient.getFirstName() + "','" + patient.getSurname() + "','" + patient.getBirthdate() + "','" + patient.getAddress() + "','" + patient.getPostalCode() + "','" + patient.getPlace() + "','" + patient.getMedicalHistory() + "');";
+		stmt.executeUpdate(sql);
+		stmt.close();
+		this.connection_m.commit();
+	}
+	
+	public void deletePatient(PatientModel patient) throws SQLException{
+		this.connection_m.setAutoCommit(false);
+		String sql = "DELETE FROM " + TABLE_NAME + " WHERE ID = " + patient.getID() + ";";
+		stmt = this.connection_m.createStatement();
 		stmt.executeUpdate(sql);
 		stmt.close();
 		this.connection_m.commit();
