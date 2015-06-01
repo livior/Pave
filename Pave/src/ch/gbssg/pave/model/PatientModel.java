@@ -41,7 +41,16 @@ public class PatientModel {
 
 	
 	/* getter und setter */
-
+	public void setAllData(String firstName, String surname, String birthdate, String address, int postalCode, String place, String medicalHistory){
+		this.firstName_m=firstName;
+		this.surname_m=surname;
+		this.birthdate_m=birthdate;
+		this.address_m=address;
+		this.postalCode_m=postalCode;
+		this.place_m=place;
+		this.medicalHistory_m=medicalHistory;
+		
+	}
 	public int getID() {
 		return id_m;
 	}

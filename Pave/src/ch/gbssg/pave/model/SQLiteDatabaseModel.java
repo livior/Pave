@@ -43,6 +43,15 @@ public class SQLiteDatabaseModel {
 		this.connection_m.commit();
 	}
 	
+	public void editPatient(PatientModel patient) throws SQLException{
+		this.connection_m.setAutoCommit(false);
+		stmt = this.connection_m.createStatement();
+		String sql = "UPDATE " + TABLE_NAME + " SET FIRSTNAME = '" + patient.getFirstName() + "', SURNAME = '" + patient.getSurname() + "', BIRTHDATE = '" + patient.getBirthdate() +  "', ADDRESS = '" + patient.getAddress() + "', POSTALCODE = " + patient.getPostalCode() + ", PLACE = '" + patient.getPlace() + "', MEDICALHISTORY = '" + patient.getMedicalHistory() + "' WHERE ID = " + patient.getID() + ";";
+		stmt.executeUpdate(sql);
+		stmt.close();
+		this.connection_m.commit();
+	}
+	
 	public void deletePatient(PatientModel patient) throws SQLException{
 		this.connection_m.setAutoCommit(false);
 		String sql = "DELETE FROM " + TABLE_NAME + " WHERE ID = " + patient.getID() + ";";

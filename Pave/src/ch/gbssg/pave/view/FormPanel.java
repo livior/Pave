@@ -10,10 +10,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import ch.gbssg.pave.model.PatientModel;
+
 
 public class FormPanel extends JPanel{
  	private static final long serialVersionUID = 1L;
-	JTextField	txtID;
 	JTextField	txtSurname;
 	JTextField	txtFirstName;
 	ObservingTextField txtDate;
@@ -48,6 +49,15 @@ public class FormPanel extends JPanel{
 		add(txtPostalCode);
 		add(txtPlace);
 	}
+	
+	public void setFormData(PatientModel patient){
+		txtSurname.setText(patient.getSurname());
+		txtFirstName.setText(patient.getFirstName());
+		txtDate.setText(patient.getBirthdate());
+		txtAddress.setText(patient.getAddress());
+		txtPostalCode.setText("" + patient.getPostalCode());
+		txtPlace.setText(patient.getPlace());
+	}
 	public String getSurname(){
 		return(txtSurname.getText());
 	}
@@ -62,12 +72,9 @@ public class FormPanel extends JPanel{
 	}
 	public int getPostalCode(){
 		int postalCode;
-		try  
-		{  
+		try{  
 			postalCode = Integer.parseInt(txtPostalCode.getText());  
-		}  
-		catch(NumberFormatException nfe)  
-		{  
+		}catch(NumberFormatException nfe){  
 		  return(-1);  
 		}  
 		return(postalCode);

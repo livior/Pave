@@ -35,8 +35,8 @@ public class MainView extends JFrame{
  	
     	this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(500, 500);
-        this.setMinimumSize(new Dimension(450,350));
+        this.setSize(700, 500);
+        this.setMinimumSize(new Dimension(700,350));
         
         
         pnlHeader = new HeaderPanel();
@@ -64,6 +64,12 @@ public class MainView extends JFrame{
     }
     public void setBtnDeleteActionListener(ActionListener a){
     	pnlButtons.setBtnDeleteActionListener(a);
+    }
+    public void setBtnGenerateBillActionListener(ActionListener a){
+    	pnlButtons.setBtnGenerateBillActionListener(a);
+    }
+    public void setBtnEditActionListener(ActionListener a){
+    	pnlButtons.setBtnEditActionListener(a);
     }
     
     public void setListActionListener(ActionListener a){

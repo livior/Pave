@@ -19,6 +19,7 @@ public class ButtonPanel extends JPanel{
 	private JPanel equalSizeGridPanel;
 	private JButton btnNew;
 	private JButton btnDelete;
+	private JButton btnGenerateBill;
 	private JButton btnEdit;
 	private JButton btnPrint;
 
@@ -34,6 +35,7 @@ public class ButtonPanel extends JPanel{
 		
 		btnNew		= new JButton();
 		btnDelete	= new JButton();
+		btnGenerateBill = new JButton("Rechnung generieren...");
 		btnEdit		= new JButton("Bearbeiten...");
 		btnPrint	= new JButton("Drucken...");
 
@@ -50,16 +52,9 @@ public class ButtonPanel extends JPanel{
 		flowLeft.add(btnNew);
 		flowLeft.add(btnDelete);
 
+		flowRight.add(btnGenerateBill);
 		flowRight.add(btnEdit);		
 		flowRight.add(btnPrint);		
-/*
-		equalSizeGridPanel = new JPanel(new GridLayout(1,3,3,3));
-		equalSizeGridPanel.add(btnNew);
-		equalSizeGridPanel.add(btnDelete);
-		equalSizeGridPanel.add(new JLabel());
-		equalSizeGridPanel.add(btnEdit);
-		equalSizeGridPanel.add(btnPrint);
-		add(equalSizeGridPanel);*/
 		add(flowLeft);
 		add(flowRight);
 	}
@@ -69,5 +64,14 @@ public class ButtonPanel extends JPanel{
 	}
 	public void setBtnDeleteActionListener(ActionListener a){
 		this.btnDelete.addActionListener(a);
+	}
+	public void setBtnGenerateBillActionListener(ActionListener a){
+		this.btnGenerateBill.addActionListener(a);
+	}
+	public void setBtnPrintActionListener(ActionListener a){
+		this.btnPrint.addActionListener(a);
+	}
+	public void setBtnEditActionListener(ActionListener a){
+		this.btnEdit.addActionListener(a);
 	}
 }

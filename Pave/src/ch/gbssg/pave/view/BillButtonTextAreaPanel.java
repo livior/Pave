@@ -7,14 +7,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class ButtonTextAreaPanel extends JPanel{
+public class BillButtonTextAreaPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	JScrollPane scrollPane;
-	JTextArea txtAreaMedicalHistory;
+	JTextArea txtAreaDescription;
 	JButton btnSave;
+	JButton btnPrint;
 	JButton btnClose;
 	
-	public ButtonTextAreaPanel(){
+	public BillButtonTextAreaPanel(){
 		JPanel pnlButtons;
 		JPanel pnlButtonLeft;
 		JPanel pnlButtonRight;
@@ -28,28 +29,30 @@ public class ButtonTextAreaPanel extends JPanel{
 
 		setLayout(new BorderLayout());
 		
-		txtAreaMedicalHistory = new JTextArea();
-		scrollPane      = new JScrollPane(txtAreaMedicalHistory);
+		txtAreaDescription = new JTextArea();
+		scrollPane      = new JScrollPane(txtAreaDescription);
 
 		btnSave = new JButton("Speichern");
+		btnPrint = new JButton("Drucken");
 		btnClose = new JButton("Schliessen");
-		add(new JLabel("Krankengeschichte:"), BorderLayout.NORTH);
+		add(new JLabel("Beschreibung:"), BorderLayout.NORTH);
 		pnlButtonLeft.add(btnSave);
+		pnlButtonLeft.add(btnPrint);
 		pnlButtonRight.add(btnClose);
 		add(scrollPane, BorderLayout.CENTER);
 		add(pnlButtons, BorderLayout.SOUTH);
 	}
 	
-	public String getMedicalHistory(){
-		return(txtAreaMedicalHistory.getText());
+	public String getDescription(){
+		return(txtAreaDescription.getText());
 	}
 	public void setBtnSaveActionListener(ActionListener a){
 		this.btnSave.addActionListener(a);
 	}
+	public void setBtnPrintActionListener(ActionListener a){
+		this.btnPrint.addActionListener(a);
+	}
 	public void setBtnCloseActionListener(ActionListener a){
 		this.btnClose.addActionListener(a);
-	}
-	public void setTextAreaData(String text){
-		this.txtAreaMedicalHistory.setText(text);
 	}
 }
