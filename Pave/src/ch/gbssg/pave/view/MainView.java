@@ -1,8 +1,8 @@
 package ch.gbssg.pave.view;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.List;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
@@ -23,20 +23,20 @@ public class MainView extends JFrame{
 	}
 	
 	/**
-     * Die JForm wird initialisiert und alle Steuerelemente
-     * positioniert
+     * initialize the JFrame and position all GUI elements
 	 * @throws UnsupportedLookAndFeelException 
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 * @throws ClassNotFoundException 
      */
     private void initForm() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
-		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
- 	
-    	this.setLayout(new BorderLayout());
+		// get design from operating system
+    	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
+		
+		this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(700, 500);
-        this.setMinimumSize(new Dimension(700,350));
+        this.setSize(750, 500);
+        this.setMinimumSize(new Dimension(750,350));
         
         
         pnlHeader = new HeaderPanel();
@@ -50,8 +50,21 @@ public class MainView extends JFrame{
         
         pnlData = new DataPanel();
         this.add(pnlData, BorderLayout.CENTER);
+        
+		// calculate the middle of the screen and set the frame there
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+
     }
     
+    public void showError(String errorMessage){
+    	String titleBar = "Fehler";
+    	JOptionPane.showMessageDialog(null, errorMessage, titleBar, JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void clearDataPanel(){
+    	this.pnlData.clearDataPanel();
+    }
     public void setPatient(PatientModel patient){
     	this.pnlData.setPatient(patient);
     }
@@ -59,6 +72,9 @@ public class MainView extends JFrame{
 		this.pnlList.updateList(patients);
 	}
 
+	public void setBtnSearchActionListener(ActionListener a){
+		pnlHeader.setBtnSearchActionListener(a);
+	}
     public void setBtnNewActionListener(ActionListener a){
     	pnlButtons.setBtnNewActionListener(a);
     }
@@ -71,12 +87,23 @@ public class MainView extends JFrame{
     public void setBtnEditActionListener(ActionListener a){
     	pnlButtons.setBtnEditActionListener(a);
     }
+    public void setBtnExportActionListener(ActionListener a){
+    	pnlButtons.setBtnExportActionListener(a);
+    }
     
-    public void setListActionListener(ActionListener a){
-    	pnlList.setListActionListener(a);
+    public void setListActionListener(ActionListener s){
+    	pnlList.setListActionListener(s);
+    }
+    
+    public void setBtnsActive(boolean active){
+    	pnlButtons.setBtnsActive(active);
     }
     
     public List getList(){
     	return(pnlList.getList());
+    }
+    
+    public String getSearchText(){
+    	return(pnlHeader.getSearchText());
     }
 }

@@ -1,30 +1,18 @@
 package ch.gbssg.pave.view;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.List;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
-import ch.gbssg.pave.controller.Controller;
 import ch.gbssg.pave.model.PatientModel;
 
 public class ListPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
-	private JPanel listPanel;
 	List patientsListView;
-	ArrayList<Map> mapArrayList;
 
 	JScrollPane scrollPane;
 	
@@ -59,9 +47,10 @@ public class ListPanel extends JPanel{
         
         patientsListView.clear();
 		for(index=0;index<patients.size();index++){
-			patientsListView.add(patients.get(index).getFirstName() + " " + patients.get(index).getSurname());
+			if(patients.get(index).isFiltered_m())
+				patientsListView.add(patients.get(index).getFirstName() + " " + patients.get(index).getSurname());
 		}
-        patientsListView.select(index-1);
+        patientsListView.select(0);
 
 	}
 }

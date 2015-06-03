@@ -1,7 +1,13 @@
 package ch.gbssg.pave.model;
 
-import java.util.ArrayList;
-import java.util.Map;
+/**
+ * This is a model class. It's used to create patients.
+ * All patient data are stored here and can be modified.
+ * Everytime when a new Object of this class is created, the ID is plus 1, so is every
+ * Object defined with his own ID.
+ * @author Livio Rinaldi
+ * @class  IAN6A
+ */
 
 public class PatientModel {
 	private static int	patientID_m;
@@ -13,6 +19,7 @@ public class PatientModel {
 	private int    		postalCode_m;
 	private String		place_m;
 	private String		medicalHistory_m;
+	private boolean     isFiltered_m;
 
 
 	public PatientModel(){
@@ -25,6 +32,7 @@ public class PatientModel {
 		this.postalCode_m=0;
 		this.place_m="";
 		this.medicalHistory_m="";
+		this.isFiltered_m=true;
 	}
 
 	public PatientModel(String firstName, String surname, String birthdate, String address, int postalCode, String place, String medicalHistory){
@@ -37,6 +45,7 @@ public class PatientModel {
 		this.postalCode_m=postalCode;
 		this.place_m=place;
 		this.medicalHistory_m=medicalHistory;
+		this.isFiltered_m=true;
 	}
 
 	
@@ -113,6 +122,14 @@ public class PatientModel {
 
 	public void setMedicalHistory(String medicalHistory) {
 		this.medicalHistory_m = medicalHistory;
+	}
+
+	public boolean isFiltered_m() {
+		return isFiltered_m;
+	}
+
+	public void setFiltered_m(boolean isFiltered_m) {
+		this.isFiltered_m = isFiltered_m;
 	}
 	
 }

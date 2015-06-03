@@ -5,60 +5,87 @@ import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import ch.gbssg.pave.model.PatientModel;
 
 public class DataPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
-	JLabel lblID;
-	JLabel lblSurname;
-	JLabel lblFirstName;
-	JLabel lblBirthdate;
-	JLabel lblAddress;
-	JLabel lblPostalCode;
-	JLabel lblPlace;
+	JLabel lblValueID;
+	JLabel lblValueSurname;
+	JLabel lblValueFirstName;
+	JLabel lblValueBirthdate;
+	JLabel lblValueAddress;
+	JLabel lblValuePostalCodePlace;
 	JTextArea  txtAreaMedicalHistory;
 	JScrollPane scrollPane;
 	
 	public DataPanel(){
 		JPanel pnlFormData;
 		JPanel pnlMedicalHistory;
-		Font f;
+		JLabel lblID; 
+		JLabel lblFirstName; 
+		JLabel lblSurname;
+		JLabel lblBirthdate;
+		JLabel lblAddress;
+		JLabel lblPostalCodePlace;
 		setLayout(new GridLayout(2,1));
 		
-		pnlFormData			= new JPanel(new GridLayout(9,2));
+		pnlFormData			= new JPanel(new GridLayout(8,2));
 		pnlMedicalHistory	= new JPanel(new BorderLayout());
 		
 		
 		Font oldLabelFont = UIManager.getFont("Label.font");
+
+		// make it bold
+	    UIManager.put("Label.font", oldLabelFont.deriveFont(Font.BOLD));
+
+		// create labels with border that contains 10px space from the left
+	    lblID = new JLabel("Patienten Nr.:");
+		lblID.setBorder(new EmptyBorder(0, 10, 0, 0));
+	    lblFirstName = new JLabel("Name:");
+		lblFirstName.setBorder(new EmptyBorder(0, 10, 0, 0));
+		lblSurname = new JLabel("Vorname:");
+		lblSurname.setBorder(new EmptyBorder(0, 10, 0, 0));
+		lblBirthdate = new JLabel("Geburtsdatum:");
+		lblBirthdate.setBorder(new EmptyBorder(0, 10, 0, 0));
+		lblAddress = new JLabel("Adresse:");
+		lblAddress.setBorder(new EmptyBorder(0, 10, 0, 0));
+		lblPostalCodePlace = new JLabel("PLZ/Ort:");
+		lblPostalCodePlace.setBorder(new EmptyBorder(0, 10, 0, 0));
+
+		// make it not bold
 	    UIManager.put("Label.font", oldLabelFont.deriveFont(Font.PLAIN));
-		lblID					= new JLabel("");
-		lblSurname				= new JLabel("");
-		lblFirstName			= new JLabel("");
-		lblBirthdate			= new JLabel("");
-		lblAddress				= new JLabel("");
-		lblPostalCode			= new JLabel("");
-		lblPlace				= new JLabel("");
+	    
+	    // create labels that contains the values
+		lblValueID					= new JLabel("");
+		lblValueSurname				= new JLabel("");
+		lblValueFirstName			= new JLabel("");
+		lblValueBirthdate			= new JLabel("");
+		lblValueAddress				= new JLabel("");
+		lblValuePostalCodePlace		= new JLabel("");
 		
-		txtAreaMedicalHistory	= new JTextArea("Gebrochenes Bein");
+		// make it bold
+	    UIManager.put("Label.font", oldLabelFont.deriveFont(Font.BOLD));
+
+	    txtAreaMedicalHistory	= new JTextArea("");
 		txtAreaMedicalHistory.setEditable(false);
 		scrollPane              = new JScrollPane(txtAreaMedicalHistory);
 		
-	    UIManager.put("Label.font", oldLabelFont.deriveFont(Font.BOLD));
-		pnlFormData.add(new JLabel("     Patienten Nr.:"));
+	    
+		// add components
 		pnlFormData.add(lblID);
-		pnlFormData.add(new JLabel("     Name:"));
+		pnlFormData.add(lblValueID);
 		pnlFormData.add(lblSurname);
-		pnlFormData.add(new JLabel("     Vorname:"));
+		pnlFormData.add(lblValueSurname);
 		pnlFormData.add(lblFirstName);
-		pnlFormData.add(new JLabel("     Geburtsdatum:"));
+		pnlFormData.add(lblValueFirstName);
 		pnlFormData.add(lblBirthdate);
-		pnlFormData.add(new JLabel("     Adresse:"));
+		pnlFormData.add(lblValueBirthdate);
 		pnlFormData.add(lblAddress);
-		pnlFormData.add(new JLabel("     PLZ:"));
-		pnlFormData.add(lblPostalCode);
-		pnlFormData.add(new JLabel("     Ort:"));
-		pnlFormData.add(lblPlace);
+		pnlFormData.add(lblValueAddress);
+		pnlFormData.add(lblPostalCodePlace);
+		pnlFormData.add(lblValuePostalCodePlace);
 		pnlFormData.add(new JLabel());
 		pnlFormData.add(new JLabel());
 		
@@ -69,14 +96,22 @@ public class DataPanel extends JPanel{
 		add(pnlMedicalHistory);
 	}
 	
+	public void clearDataPanel(){
+		lblValueID.setText("");
+		lblValueSurname.setText("");
+		lblValueFirstName.setText("");
+		lblValueBirthdate.setText("");
+		lblValueAddress.setText("");
+		lblValuePostalCodePlace.setText("");
+		txtAreaMedicalHistory.setText("");
+	}
 	public void setPatient(PatientModel patient){
-		lblID.setText("" + patient.getID());
-		lblSurname.setText(patient.getSurname());
-		lblFirstName.setText(patient.getFirstName());
-		lblBirthdate.setText(patient.getBirthdate());
-		lblAddress.setText(patient.getAddress());
-		lblPostalCode.setText("" + patient.getPostalCode());
-		lblPlace.setText(patient.getPlace());
+		lblValueID.setText("" + patient.getID());
+		lblValueSurname.setText(patient.getSurname());
+		lblValueFirstName.setText(patient.getFirstName());
+		lblValueBirthdate.setText(patient.getBirthdate());
+		lblValueAddress.setText(patient.getAddress());
+		lblValuePostalCodePlace.setText("" + patient.getPostalCode() + " " + patient.getPlace());
 		txtAreaMedicalHistory.setText(patient.getMedicalHistory());
 	}
 }

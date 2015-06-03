@@ -1,8 +1,15 @@
 package ch.gbssg.pave.view;
 
-import java.awt.BorderLayout;
+/**
+ * This class create the GUI to edit a patient.
+ * It contains functions to communicate with his elements.
+ * @author Livio Rinaldi
+ * @class  IAN6A
+ */
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
@@ -14,14 +21,15 @@ public class EditPatientView extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private FormPanel pnlForm;
 	private ButtonTextAreaPanel pnlButtonTextArea;
+	
 	public EditPatientView(PatientModel patient){
 		super("Patient bearbeiten");
 		initForm(patient);
 	}
 	
 	/**
-     * Die JForm wird initialisiert und alle Steuerelemente
-     * positioniert
+     * initialize the JForm and postition all GUI elements
+     * @param patient
      */
     private void initForm(PatientModel patient){
     	this.setLayout(new GridLayout(2,1));
@@ -36,11 +44,18 @@ public class EditPatientView extends JFrame{
         this.add(pnlForm);
         this.add(pnlButtonTextArea);
         
+		// calculate the middle of the screen and set the frame there
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }
     
-    public void showErrorInvaildInput(String infoMessage){
+    /**
+     * shows an error Message with the String u give as parameter
+     * @param errorMessage
+     */
+    public void showError(String errorMessage){
     	String titleBar = "Fehler";
-    	JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.ERROR_MESSAGE);
+    	JOptionPane.showMessageDialog(null, errorMessage, "InfoBox: " + titleBar, JOptionPane.ERROR_MESSAGE);
     }
     public void setBtnBrowseEditActionListener(ActionListener a){
     	pnlForm.setBtnBrowseActionListener(a);

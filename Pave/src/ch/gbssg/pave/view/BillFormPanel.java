@@ -1,16 +1,11 @@
 package ch.gbssg.pave.view;
 
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
-import ch.gbssg.pave.model.PatientModel;
 
 
 public class BillFormPanel extends JPanel{
@@ -21,19 +16,29 @@ public class BillFormPanel extends JPanel{
 	JButton     btnBrowse;
 	
 	public BillFormPanel(){
-		setLayout(new GridLayout(3,3));
+		setLayout(new GridLayout(3,3,10,30));
+		JLabel lblOperationTime;
+		JLabel lblPrice;
+		JLabel lblDate;
 		txtOperationTime		= new JTextField();
 		txtPrice    			= new JTextField();
 		txtDate                 = new ObservingTextField();
 		btnBrowse               = new JButton("...");
 
-		add(new JLabel("     Behandlungsdauer (h):"));
+		// create labels with border that contains 10px space from the left
+		lblOperationTime = new JLabel("Behandlungsdauer (h):");
+		lblOperationTime.setBorder(new EmptyBorder(0, 10, 0, 0));
+		lblPrice = new JLabel("Stundensatz (CHF):");
+		lblPrice.setBorder(new EmptyBorder(0, 10, 0, 0));
+		lblDate = new JLabel("Behandlungsdatum:");
+		lblDate.setBorder(new EmptyBorder(0, 10, 0, 0));
+		add(lblOperationTime);
 		add(txtOperationTime);
 		add(new JLabel());
-		add(new JLabel("     Stundensatz (CHF):"));
+		add(lblPrice);
 		add(txtPrice);
 		add(new JLabel());
-		add(new JLabel("     Behandlungsdatum:"));
+		add(lblDate);
 		add(txtDate);
 		add(btnBrowse);
 	}

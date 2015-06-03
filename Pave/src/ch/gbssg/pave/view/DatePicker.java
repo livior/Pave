@@ -49,10 +49,8 @@ public class DatePicker extends Observable implements Runnable, WindowFocusListe
 
     public static class DayLabel extends JLabel implements MouseInputListener,
             MouseMotionListener {
-        /**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
+
+    	private static final long serialVersionUID = 1L;
 		private DatePicker parent;
 
         

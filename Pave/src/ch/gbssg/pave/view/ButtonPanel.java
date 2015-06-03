@@ -1,9 +1,7 @@
 package ch.gbssg.pave.view;
 
-import java.awt.Button;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
@@ -16,12 +14,11 @@ import javax.swing.*;
 public class ButtonPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	private JPanel equalSizeGridPanel;
 	private JButton btnNew;
 	private JButton btnDelete;
 	private JButton btnGenerateBill;
 	private JButton btnEdit;
-	private JButton btnPrint;
+	private JButton btnExport;
 
 	public ButtonPanel(){
 		JPanel flowLeft;
@@ -37,7 +34,7 @@ public class ButtonPanel extends JPanel{
 		btnDelete	= new JButton();
 		btnGenerateBill = new JButton("Rechnung generieren...");
 		btnEdit		= new JButton("Bearbeiten...");
-		btnPrint	= new JButton("Drucken...");
+		btnExport	= new JButton("Exportieren...");
 
 		btnNew.setIcon(image);
 		btnNew.setBorderPainted(false);
@@ -54,7 +51,7 @@ public class ButtonPanel extends JPanel{
 
 		flowRight.add(btnGenerateBill);
 		flowRight.add(btnEdit);		
-		flowRight.add(btnPrint);		
+		flowRight.add(btnExport);		
 		add(flowLeft);
 		add(flowRight);
 	}
@@ -68,10 +65,17 @@ public class ButtonPanel extends JPanel{
 	public void setBtnGenerateBillActionListener(ActionListener a){
 		this.btnGenerateBill.addActionListener(a);
 	}
-	public void setBtnPrintActionListener(ActionListener a){
-		this.btnPrint.addActionListener(a);
+	public void setBtnExportActionListener(ActionListener a){
+		this.btnExport.addActionListener(a);
 	}
 	public void setBtnEditActionListener(ActionListener a){
 		this.btnEdit.addActionListener(a);
+	}
+	
+	public void setBtnsActive(boolean active){
+		btnDelete.setEnabled(active);
+		btnEdit.setEnabled(active);
+		btnGenerateBill.setEnabled(active);
+		btnExport.setEnabled(active);
 	}
 }

@@ -6,9 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import ch.gbssg.pave.model.PatientModel;
 
@@ -24,7 +23,13 @@ public class FormPanel extends JPanel{
 	JTextField	txtPlace;
 	
 	public FormPanel(){
-		setLayout(new GridLayout(5,3));
+		JLabel lblFirstName; 
+		JLabel lblSurname;
+		JLabel lblBirthdate;
+		JLabel lblAddress;
+		JLabel lblPostalCodePlace;
+		
+		setLayout(new GridLayout(5,3,10,10));
 		txtSurname				= new JTextField();
 		txtFirstName			= new JTextField();
 		txtDate                 = new ObservingTextField();
@@ -33,19 +38,31 @@ public class FormPanel extends JPanel{
 		txtPostalCode			= new JTextField();
 		txtPlace				= new JTextField();
 
-		add(new JLabel("     Name:"));
+		// create labels with border that contains 10px space from the left
+		lblFirstName = new JLabel("Name:");
+		lblFirstName.setBorder(new EmptyBorder(0, 10, 0, 0));
+		lblSurname = new JLabel("Vorname:");
+		lblSurname.setBorder(new EmptyBorder(0, 10, 0, 0));
+		lblBirthdate = new JLabel("Geburtsdatum:");
+		lblBirthdate.setBorder(new EmptyBorder(0, 10, 0, 0));
+		lblAddress = new JLabel("Adresse:");
+		lblAddress.setBorder(new EmptyBorder(0, 10, 0, 0));
+		lblPostalCodePlace = new JLabel("PLZ/Ort:");
+		lblPostalCodePlace.setBorder(new EmptyBorder(0, 10, 0, 0));
+		
+		add(lblFirstName);
 		add(txtFirstName);
 		add(new JLabel());
-		add(new JLabel("     Vorname:"));
+		add(lblSurname);
 		add(txtSurname);
 		add(new JLabel());
-		add(new JLabel("     Geburtsdatum:"));
+		add(lblBirthdate);
 		add(txtDate);
 		add(btnBrowse);
-		add(new JLabel("     Adresse:"));
+		add(lblAddress);
 		add(txtAddress);
 		add(new JLabel());
-		add(new JLabel("     PLZ/Ort:"));
+		add(lblPostalCodePlace);
 		add(txtPostalCode);
 		add(txtPlace);
 	}

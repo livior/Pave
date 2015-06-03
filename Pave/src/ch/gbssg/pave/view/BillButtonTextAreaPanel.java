@@ -32,8 +32,8 @@ public class BillButtonTextAreaPanel extends JPanel{
 		txtAreaDescription = new JTextArea();
 		scrollPane      = new JScrollPane(txtAreaDescription);
 
-		btnSave = new JButton("Speichern");
-		btnPrint = new JButton("Drucken");
+		btnSave = new JButton("Speichern...");
+		btnPrint = new JButton("Drucken...");
 		btnClose = new JButton("Schliessen");
 		add(new JLabel("Beschreibung:"), BorderLayout.NORTH);
 		pnlButtonLeft.add(btnSave);

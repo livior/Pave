@@ -1,9 +1,14 @@
 package ch.gbssg.pave.model;
 
+/**
+ * This is a model class. It offers function to communicate with the SQLite database.
+ * Patients can be added, deleted, updated and read.
+ * @author Livio Rinaldi
+ * @class  IAN6A
+ */
+
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SQLiteDatabaseModel {
 	private Connection connection_m;
@@ -64,7 +69,6 @@ public class SQLiteDatabaseModel {
 	public ArrayList<PatientModel> getPatients() throws SQLException{
 		ArrayList<PatientModel> patients = new ArrayList<PatientModel>();
 		PatientModel patient;
-		int index=0;
 		
 		try { 
 			stmt = this.connection_m.createStatement();
@@ -73,7 +77,6 @@ public class SQLiteDatabaseModel {
 	        	patient=new PatientModel(rs.getString("FIRSTNAME"), rs.getString("SURNAME"), rs.getString("BIRTHDATE"), rs.getString("ADDRESS"), rs.getInt("POSTALCODE"), rs.getString("PLACE"), rs.getString("MEDICALHISTORY"));
 	        	patient.setID(rs.getInt("ID"));
 	        	patients.add(patient);
-	        	index++;
 	            
 	        }
 	        rs.close(); 
