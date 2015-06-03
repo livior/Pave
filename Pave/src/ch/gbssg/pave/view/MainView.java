@@ -56,10 +56,23 @@ public class MainView extends JFrame{
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
     }
-    
+
+    /**
+     * shows an error Message with the String u give as parameter
+     * @param errorMessage
+     */
     public void showError(String errorMessage){
     	String titleBar = "Fehler";
     	JOptionPane.showMessageDialog(null, errorMessage, titleBar, JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * shows an info Message with the String u give as parameter
+     * @param infoMessage
+     */
+    public void showMessage(String infoMessage){
+    	String titleBar = "Information";
+    	JOptionPane.showMessageDialog(null, infoMessage, titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void clearDataPanel(){

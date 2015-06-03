@@ -60,6 +60,10 @@ public class PatientModel {
 		this.medicalHistory_m=medicalHistory;
 		
 	}
+	
+	public static void setStaticID(int id){
+		patientID_m=id;
+	}
 	public int getID() {
 		return id_m;
 	}

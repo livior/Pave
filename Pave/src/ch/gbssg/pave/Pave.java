@@ -8,7 +8,10 @@ package ch.gbssg.pave;
  */
 
 import java.sql.SQLException;
+
+import javax.swing.ImageIcon;
 import javax.swing.UnsupportedLookAndFeelException;
+
 import ch.gbssg.pave.controller.Controller;
 
 

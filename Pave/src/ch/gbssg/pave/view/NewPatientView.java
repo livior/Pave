@@ -50,7 +50,7 @@ public class NewPatientView extends JFrame{
      */
     public void showError(String infoMessage){
     	String titleBar = "Fehler";
-    	JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.ERROR_MESSAGE);
+    	JOptionPane.showMessageDialog(null, infoMessage, titleBar, JOptionPane.ERROR_MESSAGE);
     }
     public void setBtnBrowseActionListener(ActionListener a){
     	pnlForm.setBtnBrowseActionListener(a);

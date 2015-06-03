@@ -8,10 +8,13 @@ package ch.gbssg.pave.controller;
  * @class  IAN6A
  */
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
@@ -19,9 +22,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import ch.gbssg.pave.model.*;
 import ch.gbssg.pave.view.*;
@@ -51,11 +61,12 @@ public class Controller {
 		this.modelPatients_m = this.modelSQLiteDatabase_m.getPatients();
     	this.viewMain_m.updateList(this.modelPatients_m);
     	if(this.modelPatients_m.size()>0)
+    	{
     		this.viewMain_m.setPatient(this.modelPatients_m.get(0));
+    		PatientModel.setStaticID(this.modelPatients_m.get(this.modelPatients_m.size()-1).getID());
+    	}
     	else
     		this.viewMain_m.setBtnsActive(false);
-    		
-    		
 	}
 	
 	/**
@@ -183,33 +194,77 @@ public class Controller {
 	    	String filename;
 	    	
 	    	fileChooser.setDialogTitle("Exportieren");
-	    	fileChooser.addChoosableFileFilter(new OpenFileFilter("docx","Word-Dokument (docx)") );
 	    	fileChooser.addChoosableFileFilter(new OpenFileFilter("doc","Word-Dokument (doc)") );
 	    	fileChooser.addChoosableFileFilter(new OpenFileFilter("pdf","PDF-Dokument") );
 	    	int userSelection = fileChooser.showSaveDialog(Controller.this.viewMain_m);
 	    	if (userSelection == JFileChooser.APPROVE_OPTION) {
 	    	    File fileToSave = fileChooser.getSelectedFile();
 	    	    filename=fileToSave.toString();
-	    	    if(!filename.endsWith(".docx") || !filename.endsWith(".doc") || !filename.endsWith(".pdf"))
-	    	    	filename+=".doc";
+	    	    if(!filename.endsWith(".doc") && !filename.endsWith(".pdf"))
+	    	    	filename+=".pdf";
+	    	    if(filename.endsWith(".pdf"))
+	    	    {
+	    	    	try {
+						this.createPdfPatient(filename);
+					} catch (DocumentException e1) {
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}	    	    	
+	    	    }
+	    	    else
+	    	    {
+		    	    try {
+						writer = new PrintWriter(fileToSave.getPath(), "UTF-8");
+					} catch (FileNotFoundException | UnsupportedEncodingException e1) {
+			    	    Controller.this.viewGenerateBill_m.showError("Datei konnte nicht gespeichert werden!");	    	    
+						e1.printStackTrace();
+					}
+		    	    writer.println("Patienten Nr.: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getID());
+		    	    writer.println("Vorname: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getFirstName());
+		    	    writer.println("Name: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getSurname());
+		    	    writer.println("Geburtsdatum: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getBirthdate());
+		    	    writer.println("Adresse: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getAddress());
+		    	    writer.println("PLZ/Ort: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getPostalCode() + " " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getPlace());
+		    	    writer.println("");
+		    	    writer.println("Krankengeschichte:\n" + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getMedicalHistory());
+		    	 	writer.close();
+	    	    }
 	    	    try {
-					writer = new PrintWriter(fileToSave.getPath(), "UTF-8");
-				} catch (FileNotFoundException | UnsupportedEncodingException e1) {
-		    	    Controller.this.viewGenerateBill_m.showError("Datei konnte nicht gespeichert werden!");	    	    
+					Desktop.getDesktop().open(new File(filename));
+				} catch (IOException e1) {
+					viewMain_m.showError("Datei konnte nicht geöffnet werden!");
 					e1.printStackTrace();
 				}
-	    	    writer.println("Patienten Nr.:\t\t" + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getID());
-	    	    writer.println("Vorname:\t\t\t" + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getFirstName());
-	    	    writer.println("Name:\t\t\t\t" + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getSurname());
-	    	    writer.println("Geburtsdatum:\t\t" + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getBirthdate());
-	    	    writer.println("Adresse:\t\t\t" + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getAddress());
-	    	    writer.println("PLZ/Ort:\t\t\t" + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getPostalCode() + " " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getPlace());
-	    	    writer.println("");
-	    	    writer.println("Krankengeschichte:\n" + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getMedicalHistory());
-	    	    Controller.this.viewGenerateBill_m.showMessage("Erfolgreich gespeichert");	    	    
-	    	    writer.close();
 	    	}
-	    }
+	    }		
+        /**
+         * Creates a Patient as PDF document.
+         * @param filename the path to the new PDF document
+         * @throws    DocumentException 
+         * @throws    IOException 
+         */
+        public void createPdfPatient(String filename) throws DocumentException, IOException {
+        	final Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
+        		      Font.BOLD);            // step 1
+            Document document = new Document();
+            // step 2
+            PdfWriter.getInstance(document, new FileOutputStream(filename));
+            // step 3
+            document.open();
+            // step 4
+            document.add(new Paragraph("Patient",catFont));
+            document.add(new Paragraph("Patienten Nr.: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getID()));
+    	    document.add(new Paragraph("Vorname: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getFirstName()));
+    	    document.add(new Paragraph("Name: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getSurname()));
+    	    document.add(new Paragraph("Geburtsdatum: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getBirthdate()));
+    	    document.add(new Paragraph("Adresse: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getAddress()));
+    	    document.add(new Paragraph("PLZ/Ort: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getPostalCode() + " " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getPlace()));
+    	    document.add(new Paragraph(" "));
+    	    document.add(new Paragraph("Krankengeschichte:\n" + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getMedicalHistory()));
+            // step 5
+            document.close();
+        }
     }
     
     class BtnBrowseListener implements ActionListener{
@@ -322,6 +377,7 @@ public class Controller {
 	    	JFileChooser fileChooser = new JFileChooser();
 	    	String filename;
 	    	PrintWriter writer=null;
+	    	final Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,Font.BOLD);
 
         	if(Controller.this.viewGenerateBill_m.getOperationTime()<0)
         	{
@@ -335,7 +391,6 @@ public class Controller {
         	}
         	
 	    	fileChooser.setDialogTitle("Speichern");
-	    	fileChooser.addChoosableFileFilter(new OpenFileFilter("docx","Word-Dokument (docx)") );
 	    	fileChooser.addChoosableFileFilter(new OpenFileFilter("doc","Word-Dokument (doc)") );
 	    	fileChooser.addChoosableFileFilter(new OpenFileFilter("pdf","PDF-Dokument") );
 	    	
@@ -343,27 +398,76 @@ public class Controller {
 	    	if (userSelection == JFileChooser.APPROVE_OPTION) {
 	    	    File fileToSave = fileChooser.getSelectedFile();
 	    	    filename=fileToSave.toString();
-	    	    if(!filename.endsWith(".docx") || !filename.endsWith(".doc") || !filename.endsWith(".pdf"))
-	    	    	filename+=".doc";
+	    	    if(!filename.endsWith(".doc") && !filename.endsWith(".pdf"))
+	    	    	filename+=".pdf";
+	    	    if(filename.endsWith(".pdf"))
+	    	    {
+	    	    	try {
+						this.createPdfBill(filename);
+					} catch (DocumentException e1) {
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+	    	    }
+	    	    else
+	    	    {
+		    	    try {
+						writer = new PrintWriter(filename, "UTF-8");
+					} catch (FileNotFoundException | UnsupportedEncodingException e1) {
+			    	    Controller.this.viewGenerateBill_m.showError("Datei konnte nicht gespeichert werden!");	    	    
+						e1.printStackTrace();
+					}
+		    	    writer.println("Vorname: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getFirstName());
+		    	    writer.println("Name: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getSurname());
+		    	    writer.println("Adresse: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getAddress());
+		    	    writer.println("PLZ/Ort: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getPostalCode() + " " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getPlace());
+		    	    writer.println("");
+		    	    writer.println("Behandlungsdatum: " + Controller.this.viewGenerateBill_m.getDatePickerTxtField().getText());
+		    	    writer.println("Kosten: " + Controller.this.viewGenerateBill_m.getOperationTime() * Controller.this.viewGenerateBill_m.getPrice() + "0 Fr.");
+		    	    writer.println("");
+		    	    writer.println("Beschreibung:\n" + Controller.this.viewGenerateBill_m.getDescription());
+		    	    writer.close();
+	    	    }
 	    	    try {
-					writer = new PrintWriter(filename, "UTF-8");
-				} catch (FileNotFoundException | UnsupportedEncodingException e1) {
-		    	    Controller.this.viewGenerateBill_m.showError("Datei konnte nicht gespeichert werden!");	    	    
+					Desktop.getDesktop().open(new File(filename));
+				} catch (IOException e1) {
+					viewGenerateBill_m.showError("Datei konnte nicht geöffnet werden!");
 					e1.printStackTrace();
 				}
-	    	    writer.println("Vorname:\t\t\t" + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getFirstName());
-	    	    writer.println("Name:\t\t\t\t" + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getSurname());
-	    	    writer.println("Adresse:\t\t\t" + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getAddress());
-	    	    writer.println("PLZ/Ort:\t\t\t" + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getPostalCode() + " " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getPlace());
-	    	    writer.println("");
-	    	    writer.println("Behandlungsdatum:\t" + Controller.this.viewGenerateBill_m.getDatePickerTxtField().getText());
-	    	    writer.println("Kosten:\t\t\t" + Controller.this.viewGenerateBill_m.getOperationTime() * Controller.this.viewGenerateBill_m.getPrice() + "0 Fr.");
-	    	    writer.println("");
-	    	    writer.println("Beschreibung:\n" + Controller.this.viewGenerateBill_m.getDescription());
-	    	    Controller.this.viewGenerateBill_m.showMessage("Erfolgreich gespeichert");	    	    
-	    	    writer.close();
+
 	    	}
         	Controller.this.viewGenerateBill_m.dispose();
+        }
+        /**
+         * Creates a Bill as PDF document.
+         * @param filename the path to the new PDF document
+         * @throws    DocumentException 
+         * @throws    IOException 
+         */
+        public void createPdfBill(String filename)
+    	throws DocumentException, IOException {
+        	final Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
+      		      Font.BOLD);            // step 1
+            // step 1
+            Document document = new Document();
+            // step 2
+            PdfWriter.getInstance(document, new FileOutputStream(filename));
+            // step 3
+            document.open();
+            // step 4
+    	    document.add(new Paragraph("Rechnung",catFont));
+            document.add(new Paragraph("Vorname: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getFirstName()));
+    	    document.add(new Paragraph("Name: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getSurname()));
+    	    document.add(new Paragraph("Adresse: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getAddress()));
+    	    document.add(new Paragraph("PLZ/Ort: " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getPostalCode() + " " + Controller.this.modelPatients_m.get(Controller.this.viewMain_m.getList().getSelectedIndex()).getPlace()));
+    	    document.add(new Paragraph(" "));
+    	    document.add(new Paragraph("Behandlungsdatum: " + Controller.this.viewGenerateBill_m.getDatePickerTxtField().getText()));
+    	    document.add(new Paragraph("Kosten: " + Controller.this.viewGenerateBill_m.getOperationTime() * Controller.this.viewGenerateBill_m.getPrice() + "0 Fr."));
+    	    document.add(new Paragraph(" "));
+    	    document.add(new Paragraph("Beschreibung:\n" + Controller.this.viewGenerateBill_m.getDescription()));
+            // step 5
+            document.close();
         }
     }
     class BtnPrintBillListener implements ActionListener{
